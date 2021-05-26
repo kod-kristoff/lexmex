@@ -1,0 +1,25 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: ${{ matrix.task.name }} py-${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.9]
+        task:
+          - name: Run tests
+            run: make all-tests
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-verson }}
+      - name: Install poetry
+        run: pip install poetry
+      - name: ${{ matrix.task.name }}
+        run: ${{ matrix.task.run }}
+
