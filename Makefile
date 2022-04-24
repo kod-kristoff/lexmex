@@ -14,5 +14,5 @@ e2e-tests: install
 integration-tests: install
 	poetry run pytest -vv tests/integration
 
-install:
+install: pyproject.toml
 	poetry install
